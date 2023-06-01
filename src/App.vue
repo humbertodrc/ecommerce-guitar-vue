@@ -1,4 +1,14 @@
 <script setup>
+import { ref, reactive } from "vue";
+import { db } from "./data/guitars"
+
+
+const state = reactive({
+  guitars: db
+})
+
+console.log(state.guitars);
+
 
 </script>
 
