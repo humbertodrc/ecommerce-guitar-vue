@@ -1,13 +1,22 @@
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import { db } from "./data/guitars"
 
+// Estado con Reactive
+// const state = reactive({
+//   guitars: db
+// })
 
-const state = reactive({
-  guitars: db
+// Estado con Ref
+const state = ref(db)
+
+onMounted(() => {
+  // console.log('Mounted');
+  state.value = db
+
+  // Con reactive
+  // state.guitars = db
 })
-
-console.log(state.guitars);
 
 
 </script>
