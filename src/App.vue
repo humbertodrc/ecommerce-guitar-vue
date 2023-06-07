@@ -3,10 +3,10 @@ import { ref, reactive, onMounted } from "vue";
 import { db } from "./data/guitars";
 import Guitarra from "./components/Guitarra.vue";
 
-const state = ref(db)
+const guitarras = ref(db)
 
 onMounted(() => {
-  state.value = db
+  guitarras.value = db
 })
 
 
@@ -116,7 +116,7 @@ onMounted(() => {
 
       <!-- Para pasar los datos tambien podemos usar v-bind:guitarra="guitarra" -->
 			<Guitarra 
-        v-for="guitarra in state" 
+        v-for="guitarra in guitarras" 
         :guitarra="guitarra" 
         />
 
