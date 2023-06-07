@@ -9,6 +9,10 @@ onMounted(() => {
   guitarras.value = db
 })
 
+const agregarCarrito = () => {
+	console.log('agregando al carrito')
+}
+
 
 </script>
 
@@ -117,7 +121,8 @@ onMounted(() => {
       <!-- Para pasar los datos tambien podemos usar v-bind:guitarra="guitarra" -->
 			<Guitarra 
         v-for="guitarra in guitarras" 
-        :guitarra="guitarra" 
+        :guitarra="guitarra"
+				@agregar-carrito="agregarCarrito"
         />
 
 		</div>
