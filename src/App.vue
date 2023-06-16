@@ -39,22 +39,26 @@ const agregarCarrito = (guitarra) => {
 /**
  * Funcion que decrementa la cantidad de una guitarra en el carrito
  * En caso de que la cantidad sea 1 no se puede decrementar mas
- * @param guitarra
+ * @param id
+ * @returns void
  */
-const decrementarCantidad = (guitarra) => {
-	if (guitarra.cantidad === 1) {
-		return;
-	}
-
-	guitarra.cantidad--;
+const decrementarCantidad = (id) => {
+	
+	const index = carrito.value.findIndex(producto => producto.id === id)
+	if(carrito.value[index].cantidad <= 1) return
+	carrito.value[index].cantidad--;
 }
 
 /**
  * Funcion que incrementa la cantidad de una guitarra en el carrito
- * @param guitarra
+ * En caso de que la cantidad sea 5 no se puede incrementar mas
+ * @param id
+ * @returns void
  */
-const incrementarCantidad = (guitarra) => {
-	guitarra.cantidad++;
+const incrementarCantidad = (id) => {
+	const index = carrito.value.findIndex(producto => producto.id === id)
+	if(carrito.value[index].cantidad >= 5) return
+	carrito.value[index].cantidad++;
 }
 
 
