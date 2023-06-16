@@ -12,6 +12,12 @@ onMounted(() => {
   guitarras.value = db
 })
 
+/**
+ * Funcion que agrega una guitarra al carrito y si ya existe solo aumenta la cantidad
+ * @param guitarra 
+ * @returns void
+ */
+
 const agregarCarrito = (guitarra) => {
 
 	// Buscamos en el carrito el index de la guitarra que nos estan pasando si no existe nos devuelve -1
@@ -28,7 +34,27 @@ const agregarCarrito = (guitarra) => {
 		carrito.value.push(guitarra);
 	}
 
-	
+}
+
+/**
+ * Funcion que decrementa la cantidad de una guitarra en el carrito
+ * En caso de que la cantidad sea 1 no se puede decrementar mas
+ * @param guitarra
+ */
+const decrementarCantidad = (guitarra) => {
+	if (guitarra.cantidad === 1) {
+		return;
+	}
+
+	guitarra.cantidad--;
+}
+
+/**
+ * Funcion que incrementa la cantidad de una guitarra en el carrito
+ * @param guitarra
+ */
+const incrementarCantidad = (guitarra) => {
+	guitarra.cantidad++;
 }
 
 
@@ -37,6 +63,8 @@ const agregarCarrito = (guitarra) => {
 <template>
 	<Header
 		:carrito="carrito"
+		@decrementar-cantidad="decrementarCantidad"
+		@incrementar-cantidad="incrementarCantidad"
 	/>
 	<main class="container-xl mt-5">
 		<h2 class="text-center">Nuestra Colección</h2>
