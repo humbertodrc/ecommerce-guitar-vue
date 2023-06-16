@@ -14,10 +14,21 @@ onMounted(() => {
 
 const agregarCarrito = (guitarra) => {
 
-	// Agregamos la cantidad a cada guitarra que nos agregan al carrito pero solo 1 ya que en el carrito se puede modificar la cantidad
-	guitarra.cantidad = 1;
+	// Buscamos en el carrito el index de la guitarra que nos estan pasando si no existe nos devuelve -1
+	const existeCarrito = carrito.value.findIndex(producto => producto.id === guitarra.id)
 
-	carrito.value.push(guitarra);
+	// Si existe ese index en el carrito entonces solo aumentamos la cantidad
+	if (existeCarrito >= 0) {
+		// Solo se actualiza la cantidad
+		carrito.value[existeCarrito].cantidad++;
+	} else {
+		// Agregamos la cantidad a cada guitarra que nos agregan al carrito pero solo 1 ya que en el carrito se puede modificar la cantidad
+		guitarra.cantidad = 1;
+		// Si no existe la guitarra en el carrito la agregamos
+		carrito.value.push(guitarra);
+	}
+
+	
 }
 
 
