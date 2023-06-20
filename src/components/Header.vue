@@ -1,4 +1,8 @@
 <script setup>
+
+// Computed properties
+import {computed } from 'vue';
+
 const props = defineProps({
 	carrito: {
 		type: Array,
@@ -11,6 +15,16 @@ const props = defineProps({
 });
 
 defineEmits(['decrementar-cantidad', 'incrementar-cantidad', 'agregar-carrito'])
+
+/**
+ * Funcion que calcula el total a pagar por el usuario se utiliza el metodo computed
+ * @returns number
+ * @see https://v3.vuejs.org/guide/computed.html#computed-properties
+ */
+const totalPagar = computed(() => {
+	return props.carrito.reduce((total, producto) => total + (producto.precio * producto.cantidad), 0)
+})
+
 </script>
 
 <template>
@@ -76,7 +90,7 @@ defineEmits(['decrementar-cantidad', 'incrementar-cantidad', 'agregar-carrito'])
 								</table>
 
 								<p class="text-end">
-									Total pagar: <span class="fw-bold">$899</span>
+									Total pagar: <span class="fw-bold">${{ totalPagar }}</span>
 								</p>
 								<button class="btn btn-dark w-100 mt-3 p-2">
 									Vaciar Carrito
