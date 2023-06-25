@@ -14,7 +14,7 @@ const props = defineProps({
 	}
 });
 
-defineEmits(['decrementar-cantidad', 'incrementar-cantidad', 'agregar-carrito'])
+defineEmits(['decrementar-cantidad', 'incrementar-cantidad', 'agregar-carrito', 'eliminar-producto'])
 
 /**
  * Funcion que calcula el total a pagar por el usuario se utiliza el metodo computed
@@ -83,7 +83,7 @@ const totalPagar = computed(() => {
 												<button @click="$emit('incrementar-cantidad', producto.id)" type="button" class="btn btn-dark">+</button>
 											</td>
 											<td>
-												<button class="btn btn-danger" type="button">X</button>
+												<button @click="$emit('eliminar-producto', producto.id)" class="btn btn-danger" type="button">X</button>
 											</td>
 										</tr>
 									</tbody>

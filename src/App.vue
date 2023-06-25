@@ -63,6 +63,15 @@ const incrementarCantidad = (id) => {
 	carrito.value[index].cantidad++;
 }
 
+/**
+ * Eliminar un producto del carrito
+ * @param id
+ * @returns void
+ */
+const eliminarProducto = (id) => {
+	carrito.value = carrito.value.filter(producto => producto.id !== id)
+}
+
 
 </script>
 
@@ -73,6 +82,7 @@ const incrementarCantidad = (id) => {
 		@agregar-carrito="agregarCarrito"
 		@decrementar-cantidad="decrementarCantidad"
 		@incrementar-cantidad="incrementarCantidad"
+		@eliminar-producto="eliminarProducto"
 	/>
 	<main class="container-xl mt-5">
 		<h2 class="text-center">Nuestra Colección</h2>
