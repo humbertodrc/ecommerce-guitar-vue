@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive, onMounted, watch } from "vue";
 import { db } from "./data/guitars";
 import Guitarra from "./components/Guitarra.vue";
 import Header from "./components/Header.vue";
@@ -8,6 +8,15 @@ import Footer from "./components/Footer.vue";
 const guitarras = ref(db)
 const carrito = ref([])
 const guitarraHero = ref({})
+
+/**
+ * Utilizar watch para guardar en el localstorage cada vez que cambie el carrito
+ * deep: true para que tambien observe los cambios de los objetos dentro del array
+ */
+watch(carrito, () => {
+	guardarLocalStorage()
+}, { deep: true })
+
 
 onMounted(() => {
 	guitarras.value = db
@@ -42,8 +51,6 @@ const agregarCarrito = (guitarra) => {
 		carrito.value.push(guitarra);
 	}
 
-	guardarLocalStorage()
-
 }
 
 /**
@@ -57,7 +64,6 @@ const decrementarCantidad = (id) => {
 	const index = carrito.value.findIndex(producto => producto.id === id)
 	if(carrito.value[index].cantidad <= 1) return
 	carrito.value[index].cantidad--;
-	guardarLocalStorage()
 }
 
 /**
@@ -70,7 +76,6 @@ const incrementarCantidad = (id) => {
 	const index = carrito.value.findIndex(producto => producto.id === id)
 	if(carrito.value[index].cantidad >= 5) return
 	carrito.value[index].cantidad++;
-	guardarLocalStorage()
 }
 
 /**
@@ -80,7 +85,6 @@ const incrementarCantidad = (id) => {
  */
 const eliminarProducto = (id) => {
 	carrito.value = carrito.value.filter(producto => producto.id !== id)
-	guardarLocalStorage()
 }
 
 /**
@@ -89,7 +93,6 @@ const eliminarProducto = (id) => {
  */
 const vaciarCarrito = () => {
 	carrito.value = []
-	guardarLocalStorage()
 }
 
 /**
@@ -100,6 +103,8 @@ const vaciarCarrito = () => {
 const guardarLocalStorage = () => {
 	localStorage.setItem('carrito', JSON.stringify(carrito.value))
 }
+
+
 
 
 </script>
@@ -122,6 +127,7 @@ const guardarLocalStorage = () => {
       <!-- Para pasar los datos tambien podemos usar v-bind:guitarra="guitarra" -->
 			<Guitarra 
         v-for="guitarra in guitarras" 
+				:key="guitarra.id"
         :guitarra="guitarra"
 				@agregar-carrito="agregarCarrito"
         />
